@@ -1,0 +1,275 @@
+/* 通用样式和重置 */
+:root {
+    --primary-color: #e0b467; /* 金色调 */
+    --secondary-color: #9c6c30; /* 深金色 */
+    --text-light: #f0f0f0;
+    --text-dark: #333;
+    --bg-dark: #1a1a2e; /* 深蓝色背景 */
+    --bg-light: #2c2c4d; /* 稍亮的背景 */
+    --card-bg: rgba(44, 44, 77, 0.7); /* 卡片半透明背景 */
+    --border-color: rgba(224, 180, 103, 0.4); /* 边框颜色 */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Noto Sans SC', sans-serif;
+}
+
+* {
+    margin: 0;/* 重置默认外边距 */
+    padding: 0;
+    box-sizing: border-box;/* 包括padding和border在内的宽高计算 */
+}
+
+body {
+    display: flex;/* 使用Flexbox布局 */
+    flex-direction: column;/* 垂直排列 */
+    min-height: 100vh;
+    /*文字样式*/
+    font-family: var(--font-body);
+    line-height: 1.6;/* 提高可读性  字体乘1.6*/
+    color: var(--text-light);
+    background-color: var(--bg-dark);
+    
+    
+    
+    overflow-x: hidden; /* 防止水平滚动 */
+    background-image: url('images/main-bg.jpg'); /* 你的背景图片 */
+    background-size: cover;/* 覆盖整个背景,d等比，中心 */
+    background-position: center;/* 居中显示 ,缩放*/
+    background-attachment: fixed; /* 背景固定 */
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 头部导航栏 */
+.main-header {
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+    padding: 1rem 2rem;/* rem=根元素默认大小，等比放大内边距 */
+    position: sticky;
+    top: 0;/* 固定在顶部 ,0时固定*/
+    z-index: 1000;/* 确保在最上层 */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;/*在父级中 居中对齐 */
+}
+
+.navbar .logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;/* 加粗 */
+    color: var(--primary-color);
+}
+
+.nav-links {
+    list-style: none;/* 移除默认列表样式 */
+    display: flex;/* 水平排列 默认flex-direction: row */
+}
+
+.nav-links li {
+    margin-left: 2rem;/* 导航123左侧间距，美观 */
+}
+
+.nav-links a {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    transition: color 0.3s ease;/* 平滑过渡效果,加载此处文字动画进出均有 */
+}
+
+.nav-links a:hover {/* 悬停效果 */
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* 英雄区（主内容区） */
+.hero-section {
+    flex-grow: 1; /* 占据剩余空间,子空间 */
+    display: flex;
+    justify-content: center;
+    align-items: center;/* 垂直水平居中 */
+    text-align: center;/* 文字居中 */
+    padding: 4rem 2rem;/* 内边距 */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    margin-bottom: 1rem;/* 与副标题间距, */
+    color: var(--primary-color);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 700px;/* 限制最大宽度,可读性 */
+    margin: 0 auto 3rem auto;/* 上0 右自动 下3rem 左自动   居中底部间距*/
+    color: var(--text-light);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.module-cards {
+    display: flex;/*shuiping */
+    flex-wrap: wrap;/* 换行 */
+    gap: 3rem;  /* 卡片间距 */
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.module-cards .card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);/* 边框 */
+    border-radius: 15px;
+    padding: 2.5rem;
+    width: 380px;
+    text-align: center;/* 文字居中 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;/* 垂直排列 */
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-light); /* 确保卡片内的文字颜色 */
+
+
+}
+
+.module-cards .card:hover {
+    transform: translateY(-10px);/* 上移效果 */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    text-decoration: none; /* 移除hover时的下划线 */
+}
+
+.module-cards .card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.module-cards .card p {
+    font-size: 1rem;
+    margin-bottom: 2rem;/* 与按钮间距 */
+    flex-grow: 1; /* 让描述占据更多空间，按钮底部对齐 */
+}
+
+.module-cards .card button {
+    background-color: var(--primary-color);
+    color: var(--bg-dark);
+    border: none;/* 移除默认边框 更简洁*/
+    padding: 0.8rem 1.8rem;/* shangxia   zuoyou  zhengjie内边距 */
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;/* 鼠标指针显示改变*/
+    transition: background-color 0.3s ease, transform 0.2s ease;/* 颜色 位移 平滑过渡效果 */
+}
+
+.module-cards .card button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* 底部 */
+.main-footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%; /* 确保底部宽度和内容区一致 */
+    box-sizing: border-box; /* 包含padding在内的宽度计算 */
+}
+
+.main-footer p {
+    margin: 0;
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+    margin-left: 1rem;
+    filter: invert(1); /* 将白色图标反转为深色 */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.social-links img:hover {
+    opacity: 1;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    .module-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    .module-cards .card {
+        width: 80%; /* 调整卡片宽度 */
+        max-width: 400px; /* 最大宽度限制 */
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+    .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap; /* 允许链接换行 */
+        justify-content: center;
+    }
+    .nav-links li {
+        margin: 0.5rem 1rem;
+    }
+    .main-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .social-links {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header, .main-footer {
+        padding: 1rem;
+    }
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .module-cards .card {
+        padding: 1.5rem;
+    }
+    .module-cards .card h2 {
+        font-size: 1.5rem;
+    }
+    .module-cards .card p {
+        font-size: 0.9rem;
+    }
+    .module-cards .card button {
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+}

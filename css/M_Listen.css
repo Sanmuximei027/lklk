@@ -1,0 +1,218 @@
+/* listen.css */
+
+/* 覆盖或补充主CSS中的样式 */
+body {
+    background-image: url('images/listen-bg.jpg'); /* 另一个背景图 */
+}
+
+.main-header .navbar .nav-links .active {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.listen-hero {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.listen-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    width: 100%;
+}
+
+.listen-header h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.listen-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.back-button {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-dark);
+    text-decoration: none;
+}
+
+/* 音乐网格容器 */
+.music-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 响应式网格 */
+    gap: 2.5rem;
+    width: 100%;
+    margin-top: 2rem;
+    padding-bottom: 150px; /* 为底部播放器留出空间 */
+}
+
+.music-node {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden; /* 隐藏超出边界的内容 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.music-node:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.music-node img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 圆形图片 */
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 10px rgba(224, 180, 103, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.music-node:hover img {
+    transform: scale(1.05);
+}
+
+.music-node h3 {
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* 播放图标 */
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: var(--primary-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* 确保不阻碍点击事件 */
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 1rem;
+}
+
+.music-node:hover .play-icon {
+    opacity: 1;
+}
+
+/* 播放器 */
+.global-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.global-player audio {
+    width: 80%;
+    max-width: 600px;
+    margin-bottom: 0.5rem;
+}
+
+.current-track-info {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+#currentTrackTitle {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .music-grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+    }
+    .music-node {
+        padding: 1rem;
+    }
+    .music-node img {
+        width: 100px;
+        height: 100px;
+    }
+    .music-node h3 {
+        font-size: 1.1rem;
+    }
+    .play-icon {
+        font-size: 2.5rem;
+        padding: 0.8rem;
+    }
+    .global-player audio {
+        width: 95%;
+    }
+    .current-track-info {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .listen-header h1 {
+        font-size: 2rem;
+    }
+    .music-grid-container {
+        gap: 1rem;
+    }
+    .music-node img {
+        width: 80px;
+        height: 80px;
+    }
+    .music-node h3 {
+        font-size: 1rem;
+    }
+    .play-icon {
+        font-size: 2rem;
+        padding: 0.6rem;
+    }
+    .global-player {
+        padding: 0.8rem 1rem;
+    }
+}

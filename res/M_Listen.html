@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路途中的聆听 - 探索世界音乐之美</title>
+    <link rel="stylesheet" href="../css/M.css">
+    <link rel="stylesheet" href="../css/M_Listen.css"> <!-- 专门为聆听页面创建的CSS文件 -->
+ 
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="../res/M_Home.html" class="logo">世界音迹</a>
+            <ul class="nav-links">
+                <li><a href="../res/M_Home.html">首页</a></li>
+                <li><a href="../res/M_Timeline.html">时间足迹</a></li>
+                <li><a href="../res/M_Listen.html" class="active">聆听之旅</a></li>
+                <li><a href="#">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="listen-hero">
+        <div class="listen-header">
+            <a href="../res/M_Home.html" class="back-button">← 返回主页</a>
+            <h1>路途中的聆听：环球音景</h1>
+            <p>点击“小球”探索并播放来自世界各地的独特旋律。</p>
+        </div>
+
+        <div class="music-grid-container">
+            <!-- 音乐小球，可以像时间线那样错落，也可以是网格布局 -->
+            <div class="music-node" data-src="audio/african-drums.mp3" data-title="非洲鼓乐">
+                <i class="fas fa-play play-icon"></i>
+                <img src="images/african-drums-thumb.jpg" alt="非洲鼓乐">
+                <h3>非洲鼓乐</h3>
+            </div>
+            <div class="music-node" data-src="audio/latin-jazz.mp3" data-title="拉丁爵士">
+                <i class="fas fa-play play-icon"></i>
+                <img src="images/latin-jazz-thumb.jpg" alt="拉丁爵士">
+                <h3>拉丁爵士</h3>
+            </div>
+            <div class="music-node" data-src="audio/indian-ragas.mp3" data-title="印度拉格">
+                <i class="fas fa-play play-icon"></i>
+                <img src="images/indian-ragas-thumb.jpg" alt="印度拉格">
+                <h3>印度拉格</h3>
+            </div>
+            <div class="music-node" data-src="audio/japanese-shakuhachi.mp3" data-title="日本尺八">
+                <i class="fas fa-play play-icon"></i>
+                <img src="images/japanese-shakuhachi-thumb.jpg" alt="日本尺八">
+                <h3>日本尺八</h3>
+            </div>
+            <div class="music-node" data-src="audio/celtic-folk.mp3" data-title="凯尔特民谣">
+                <i class="fas fa-play play-icon"></i>
+                <img src="images/celtic-folk-thumb.jpg" alt="凯尔特民谣">
+                <h3>凯尔特民谣</h3>
+            </div>
+            <div class="music-node" data-src="audio/chinese-guzheng.mp3" data-title="中国古筝">
+                <i class="fas fa-play play-icon"></i>
+                <img src="images/chinese-guzheng-thumb.jpg" alt="中国古筝">
+                <h3>中国古筝</h3>
+            </div>
+            <!-- 更多音乐节点 -->
+        </div>
+
+        <!-- 全局音乐播放器 -->
+        <div class="global-player">
+            <audio id="audioPlayer" controls></audio>
+            <div class="current-track-info">
+                正在播放：<span id="currentTrackTitle">选择一首音乐</span>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2024 世界音迹. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#"><img src="icons/facebook.svg" alt="Facebook"></a>
+            <a href="#"><img src="icons/twitter.svg" alt="Twitter"></a>
+            <a href="#"><img src="icons/instagram.svg" alt="Instagram"></a>
+        </div>
+    </footer>
+    <script src="listen.js"></script> <!-- 链接到你的JavaScript文件 -->
+</body>
+</html>

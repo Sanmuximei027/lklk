@@ -1,0 +1,251 @@
+/* timeline.css */
+
+/* 覆盖或补充主CSS中的样式 */
+body {
+    background-image: url('images/timeline-bg.jpg'); /* 另一个背景图 */
+}
+
+.main-header .navbar .nav-links .active {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.timeline-hero {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    max-width: 1400px; /* 适当增加宽度以容纳时间线 */
+    margin: 0 auto;
+    position: relative; /* 用于小球定位 */
+    overflow: hidden; /* 防止小球溢出造成滚动条 */
+}
+
+.timeline-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    width: 100%;
+}
+
+.timeline-header h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.timeline-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.back-button {
+    position: absolute;
+    left: 0;
+    top: 10px; /* 调整位置 */
+    font-size: 1.1rem;
+    color: var(--text-light);
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-dark);
+    text-decoration: none;
+}
+
+/* 时间线容器 */
+.timeline-container {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    height: 300px; /* 给出一定高度 */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* 时间线主线 */
+.timeline-line {
+    position: absolute;
+    width: calc(100% - 100px); /* 留出两端小球的空间 */
+    height: 4px;
+    background: linear-gradient(to right, #a0d911, #52c41a, #08979c, #13c2c2, #597ef7, #722ed1, #eb2f96, #fa541c); /* 彩虹渐变线 */
+    border-radius: 2px;
+    z-index: 1;
+}
+
+/* 时间线节点（小球） */
+.timeline-node {
+    position: relative;
+    z-index: 2; /* 确保小球在线的上方 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px; /* 小球基础宽度 */
+    height: 120px; /* 小球基础高度 */
+    border-radius: 50%;
+    background-color: var(--card-bg); /* 使用卡片背景色 */
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 15px rgba(224, 180, 103, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none; /* 移除链接下划线 */
+}
+
+.timeline-node:hover {
+    transform: scale(1.1) translateY(-10px); /* 悬浮和上浮效果 */
+    box-shadow: 0 0 25px rgba(224, 180, 103, 0.8), 0 0 40px rgba(255, 255, 255, 0.3);
+    border-color: var(--text-light);
+}
+
+.node-bubble {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    font-weight: bold;
+    padding: 0.5rem;
+}
+
+.timeline-node h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-family: var(--font-body); /* 小球内的字体 */
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* 详细信息悬浮窗样式 */
+.node-detail {
+    position: absolute;
+    bottom: 140px; /* 位于小球上方 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    background-color: rgba(20, 20, 20, 0.95);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none; /* 防止鼠标误触 */
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* 偶数个小球（原本是上移的）的悬浮窗显示在下方，避免遮挡 */
+.timeline-node:nth-child(even) .node-detail {
+    bottom: auto;
+    top: 140px;
+}
+
+.node-detail h4 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 0.3rem;
+}
+
+.node-detail p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* 悬停时显示详细信息 */
+.timeline-node:hover .node-detail {
+    opacity: 1;
+    visibility: visible;
+    bottom: 150px; /* 稍微上浮一点的动画效果 */
+}
+
+.timeline-node:nth-child(even):hover .node-detail {
+    bottom: auto;
+    top: 150px; /* 稍微下沉一点的动画效果 */
+}
+
+/* 调整小球的垂直位置，使其错落有致 */
+.timeline-node:nth-child(even) { /* 偶数个小球上移 */
+    margin-top: -60px; /* 上移距离 */
+}
+.timeline-node:nth-child(odd) { /* 奇数个小球下移 */
+    margin-bottom: -60px; /* 下移距离 */
+}
+
+/* 响应式调整 */
+@media (max-width: 992px) {
+    .timeline-node {
+        width: 100px;
+        height: 100px;
+    }
+    .timeline-node h3 {
+        font-size: 1rem;
+    }
+    .timeline-container {
+        height: 250px;
+        width: 95%;
+    }
+    .timeline-line {
+        width: calc(100% - 80px);
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline-container {
+        flex-direction: column; /* 小屏幕垂直排列 */
+        height: auto; /* 高度自适应 */
+        padding-top: 50px; /* 留出顶部空间 */
+        padding-bottom: 50px;
+    }
+    .timeline-line {
+        width: 4px; /* 垂直线 */
+        height: calc(100% - 100px); /* 垂直线的长度 */
+        background: linear-gradient(to bottom, #a0d911, #52c41a, #08979c, #13c2c2, #597ef7, #722ed1, #eb2f96, #fa541c);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .timeline-node {
+        margin: 20px 0 !important; /* 清除错位边距，垂直居中 */
+        left: auto;
+        top: auto;
+        transform: none !important; /* 清除可能影响定位的transform */
+    }
+    .timeline-node:hover {
+        transform: scale(1.1) !important; /* 仅放大 */
+    }
+
+    .timeline-header h1 {
+        font-size: 2.5rem;
+    }
+    .back-button {
+        left: 1rem;
+        top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-header h1 {
+        font-size: 2rem;
+    }
+    .timeline-node {
+        width: 80px;
+        height: 80px;
+    }
+    .timeline-node h3 {
+        font-size: 0.9rem;
+    }
+}
