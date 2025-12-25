@@ -150,10 +150,12 @@ body {
 /* ========== 悬停预览层 ========== */
 .hover-preview {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 110%;
-    transform: translateY(-50%);
+    transform: translateY(0);
     width: 350px;
+    max-height: 80vh;
+    overflow: hidden;
     background: rgba(20, 20, 40, 0.98);
     border: 2px solid rgba(127, 219, 218, 0.6);
     border-radius: 10px;
