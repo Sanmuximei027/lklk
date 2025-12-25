@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你的唱片柜</title>
+    <link rel="stylesheet" href="../css/M_Record.css">
+</head>
+<body>
+    <!-- 背景CG层 -->
+    <div class="bg-layer" id="bgLayer">
+        <!-- 默认背景，可自行修改图片路径 -->
+        <img src="" alt="" class="bg-image" id="bgImage">
+    </div>
+
+    <!-- 主界面容器，鼠标停止移动时会隐藏 -->
+    <div class="main-ui" id="mainUI">
+        <!-- 左上角标题 -->
+        <div class="title-area">
+            <h1>Sound mode</h1>
+            <span class="sub-title">古典BGM</span>
+        </div>
+
+        <!-- 右上角装饰线条（可选） -->
+        <div class="decoration-right"></div>
+
+        <!-- 曲目列表区域 -->
+        <div class="track-list-container" id="trackListContainer">
+            <div class="track-grid">
+                <!-- ========== 第1页曲目 ========== -->
+                <!-- data-cg 现在是文件夹路径，每个文件夹内放多张CG图片，命名为 1.jpg, 2.jpg, 3.jpg... -->
+                <!-- 请在 record.js 的 trackData 数组中设置每首曲目的 cgCount（CG图片数量） -->
+                <div class="track-item" data-audio="audio/track1.mp3" data-cg="cg/track1">
+                    <span class="track-name">月光奏鸣曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track2.mp3" data-cg="cg/track2">
+                    <span class="track-name">四季·春</span>
+                </div>
+                <div class="track-item" data-audio="audio/track3.mp3" data-cg="cg/track3">
+                    <span class="track-name">卡农</span>
+                </div>
+                <div class="track-item" data-audio="audio/track4.mp3" data-cg="cg/track4">
+                    <span class="track-name">致爱丽丝</span>
+                </div>
+                <div class="track-item" data-audio="audio/track5.mp3" data-cg="cg/track5">
+                    <span class="track-name">天鹅湖</span>
+                </div>
+                <div class="track-item" data-audio="audio/track6.mp3" data-cg="cg/track6">
+                    <span class="track-name">命运交响曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track7.mp3" data-cg="cg/track7">
+                    <span class="track-name">蓝色多瑙河</span>
+                </div>
+                <div class="track-item" data-audio="audio/track8.mp3" data-cg="cg/track8">
+                    <span class="track-name">土耳其进行曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track9.mp3" data-cg="cg/track9">
+                    <span class="track-name">G弦上的咏叹调</span>
+                </div>
+                <div class="track-item" data-audio="audio/track10.mp3" data-cg="cg/track10">
+                    <span class="track-name">悲怆奏鸣曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track11.mp3" data-cg="cg/track11">
+                    <span class="track-name">梦幻曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track12.mp3" data-cg="cg/track12">
+                    <span class="track-name">野蜂飞舞</span>
+                </div>
+                <div class="track-item" data-audio="audio/track13.mp3" data-cg="cg/track13">
+                    <span class="track-name">小夜曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track14.mp3" data-cg="cg/track14">
+                    <span class="track-name">匈牙利舞曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track15.mp3" data-cg="cg/track15">
+                    <span class="track-name">春之声圆舞曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track16.mp3" data-cg="cg/track16">
+                    <span class="track-name">钟</span>
+                </div>
+                <div class="track-item" data-audio="audio/track17.mp3" data-cg="cg/track17">
+                    <span class="track-name">幻想即兴曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track18.mp3" data-cg="cg/track18">
+                    <span class="track-name">革命练习曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track19.mp3" data-cg="cg/track19">
+                    <span class="track-name">英雄波兰舞曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track20.mp3" data-cg="cg/track20">
+                    <span class="track-name">夜曲Op.9 No.2</span>
+                </div>
+                <div class="track-item" data-audio="audio/track21.mp3" data-cg="cg/track21">
+                    <span class="track-name">爱之梦</span>
+                </div>
+                <div class="track-item" data-audio="audio/track22.mp3" data-cg="cg/track22">
+                    <span class="track-name">波莱罗舞曲</span>
+                </div>
+                <div class="track-item" data-audio="audio/track23.mp3" data-cg="cg/track23">
+                    <span class="track-name">胡桃夹子</span>
+                </div>
+                <div class="track-item" data-audio="audio/track24.mp3" data-cg="cg/track24">
+                    <span class="track-name">1812序曲</span>
+                </div>
+                <!-- ========== 曲目结束 ========== -->
+            </div>
+        </div>
+
+        <!-- 页码切换 -->
+        <div class="page-control">
+            <span>page</span>
+            <button class="page-btn active" data-page="1">1P</button>
+            <button class="page-btn" data-page="2">2P</button>
+        </div>
+    </div>
+
+    <!-- 底部控制栏（始终显示） -->
+    <div class="bottom-bar" id="bottomBar">
+        <!-- 播放控制按钮 -->
+        <div class="player-controls">
+            <button class="ctrl-btn" id="playBtn">▶</button>
+            <button class="ctrl-btn" id="stopBtn">■</button>
+            <button class="ctrl-btn" id="prevBtn">◀◀</button>
+            <button class="ctrl-btn" id="nextBtn">▶▶</button>
+            <button class="ctrl-btn" id="listBtn">≡</button>
+            <button class="ctrl-btn" id="loopBtn">🔁</button>
+            <button class="ctrl-btn" id="shuffleBtn">🔀</button>
+        </div>
+
+        <!-- 音量控制 -->
+        <div class="volume-control">
+            <span>volume</span>
+            <input type="range" id="volumeSlider" min="0" max="100" value="80">
+        </div>
+
+        <!-- 进度条 -->
+        <div class="progress-area">
+            <span class="time-display" id="currentTime">0:00</span>
+            <div class="progress-bar-container" id="progressContainer">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <span class="time-display" id="totalTime">0:00</span>
+        </div>
+
+        <!-- 曲目信息 -->
+        <div class="track-info">
+            <div class="composer-info">
+                <span>Composer: </span>
+                <span id="composerName">--</span>
+            </div>
+            <div class="title-info">
+                <span>Title: </span>
+                <span id="trackTitle">--</span>
+            </div>
+        </div>
+
+        <!-- 返回按钮 -->
+        <a href="M_Home.html" class="back-btn">Back</a>
+    </div>
+
+    <!-- 音频播放器（隐藏） -->
+    <audio id="audioPlayer"></audio>
+
+    <script src="record.js"></script>
+</body>
+</html>
