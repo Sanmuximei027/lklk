@@ -15,23 +15,23 @@ const PHOTO_CATEGORIES = [
         photos: 'all'  // 特殊值，表示显示所有照片
     },
     {
-        category: '风景',
+        category: '德国',
         photos: ['1.jpg', '2.jpg', '3.jpg']
     },
     {
-        category: '人物',
+        category: '俄罗斯',
         photos: ['4.jpg', '5.jpg', '6.jpg']
     },
     {
-        category: '音乐会',
+        category: '法国',
         photos: ['7.jpg', '8.jpg']
     },
     {
-        category: '其他',
+        category: '波兰',
         photos: ['9.jpg', '10.jpg']
     },
     {
-        category: '其他ta',
+        category: '奥地利',
         photos: ['1.jpg', '10.jpg']
     }
 ];
