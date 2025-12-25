@@ -1,0 +1,360 @@
+/* M_Record.css - 你的唱片柜样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: "Microsoft YaHei", sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+    position: relative;
+}
+
+/* ========== 背景CG层 ========== */
+.bg-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    /* 默认背景，可修改下方路径 */
+    background-image: url('');
+    background-size: cover;
+    background-position: center;
+    background-color: #1a1a2e;
+}
+
+.bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.bg-image.show {
+    opacity: 1;
+}
+
+/* ========== 主界面UI层 ========== */
+.main-ui {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out;
+    pointer-events: auto;
+}
+
+.main-ui.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 左上角标题 */
+.title-area {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+}
+
+.title-area h1 {
+    font-size: 28px;
+    font-weight: normal;
+    color: #7fdbda;
+    text-shadow: 0 0 10px rgba(127, 219, 218, 0.5);
+    letter-spacing: 2px;
+}
+
+.sub-title {
+    font-size: 14px;
+    color: #5fb8b7;
+    margin-left: 20px;
+    letter-spacing: 3px;
+}
+
+/* 右上角装饰 */
+.decoration-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 200px;
+    /* 可在此添加装饰图片 */
+    /* background-image: url('decoration.png'); */
+}
+
+/* ========== 曲目列表区域 ========== */
+.track-list-container {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 900px;
+    height: calc(100% - 220px);
+    overflow: hidden;
+}
+
+.track-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, auto);
+    gap: 12px;
+    padding: 10px;
+}
+
+.track-item {
+    background: linear-gradient(135deg, rgba(40, 80, 100, 0.7), rgba(30, 60, 80, 0.8));
+    border: 1px solid rgba(100, 180, 180, 0.4);
+    border-radius: 5px;
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.track-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(127, 219, 218, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.track-item:hover {
+    background: linear-gradient(135deg, rgba(60, 120, 140, 0.8), rgba(40, 90, 110, 0.9));
+    border-color: rgba(127, 219, 218, 0.7);
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(127, 219, 218, 0.3);
+}
+
+.track-item:hover::before {
+    transform: translateX(100%);
+}
+
+.track-item.active {
+    background: linear-gradient(135deg, rgba(0, 200, 200, 0.8), rgba(0, 150, 150, 0.9));
+    border-color: #7fdbda;
+    box-shadow: 0 0 20px rgba(127, 219, 218, 0.5);
+}
+
+.track-name {
+    font-size: 14px;
+    color: #c5f0ef;
+    text-shadow: 0 0 5px rgba(127, 219, 218, 0.3);
+}
+
+.track-item.active .track-name {
+    color: #fff;
+    font-weight: bold;
+}
+
+/* ========== 页码控制 ========== */
+.page-control {
+    position: absolute;
+    bottom: 140px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-control span {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.page-btn {
+    background: linear-gradient(135deg, rgba(40, 80, 100, 0.7), rgba(30, 60, 80, 0.8));
+    border: 1px solid rgba(100, 180, 180, 0.4);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    color: #7fdbda;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-btn:hover {
+    background: rgba(127, 219, 218, 0.3);
+}
+
+.page-btn.active {
+    background: #7fdbda;
+    color: #1a1a2e;
+}
+
+/* ========== 底部控制栏 ========== */
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5));
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px 20px;
+}
+
+/* 播放控制按钮 */
+.player-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.ctrl-btn {
+    background: linear-gradient(135deg, rgba(40, 100, 100, 0.8), rgba(30, 80, 80, 0.9));
+    border: 1px solid rgba(127, 219, 218, 0.5);
+    border-radius: 5px;
+    padding: 8px 15px;
+    color: #7fdbda;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ctrl-btn:hover {
+    background: rgba(127, 219, 218, 0.4);
+    box-shadow: 0 0 10px rgba(127, 219, 218, 0.3);
+}
+
+/* 音量控制 */
+.volume-control {
+    position: absolute;
+    right: 200px;
+    top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-control span {
+    color: #888;
+    font-size: 12px;
+}
+
+#volumeSlider {
+    width: 120px;
+    height: 5px;
+    -webkit-appearance: none;
+    background: rgba(127, 219, 218, 0.3);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: #7fdbda;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* 进度条 */
+.progress-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.time-display {
+    font-size: 14px;
+    color: #7fdbda;
+    min-width: 45px;
+}
+
+.progress-bar-container {
+    flex: 1;
+    max-width: 500px;
+    height: 8px;
+    background: rgba(127, 219, 218, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4a9a9a, #7fdbda);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* 曲目信息 */
+.track-info {
+    position: absolute;
+    bottom: 15px;
+    left: 30px;
+    display: flex;
+    gap: 80px;
+}
+
+.composer-info, .title-info {
+    font-size: 16px;
+}
+
+.composer-info span:first-child,
+.title-info span:first-child {
+    color: #888;
+}
+
+#composerName, #trackTitle {
+    color: #7fdbda;
+}
+
+/* 返回按钮 */
+.back-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+    color: #7fdbda;
+}
+
+/* ========== 响应式布局 ========== */
+@media (max-width: 900px) {
+    .track-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .track-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .track-info {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
