@@ -2,7 +2,8 @@
 
 /* 覆盖或补充主CSS中的样式 */
 body {
-    background-image: url('images/listen-bg.jpg'); /* 另一个背景图 */
+    background-image: url('../res/images/bg/bgls.jpg'); /* 另一个背景图 */
+    padding-top: 60px; /* 为固定导航栏留出空间 */
 }
 
 .main-header .navbar .nav-links .active {

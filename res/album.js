@@ -20,19 +20,19 @@ const PHOTO_CATEGORIES = [
     },
     {
         category: '俄罗斯',
-        photos: ['4.jpg', '5.jpg', '6.jpg']
+        photos: ['4.jpg', '5.jpg']
     },
     {
         category: '法国',
-        photos: ['7.jpg', '8.jpg']
+        photos: ['6.jpg', '7.jpg']
     },
     {
         category: '波兰',
-        photos: ['9.jpg', '10.jpg']
+        photos: ['8.jpg', '9.jpg']
     },
     {
         category: '奥地利',
-        photos: ['1.jpg', '10.jpg']
+        photos: ['10.jpg', '11.jpg']
     }
 ];
 
@@ -133,18 +133,6 @@ async function loadPhotos() {
     photoGrid.innerHTML = '';
     allPhotoElements = [];
     
-// ========== 加载照片 ==========
-async function loadPhotos() {
-    // 使用去重后的照片列表
-    photos = uniquePhotoList.map(filename => `${PHOTO_FOLDER}/${filename}`);
-    
-    // 更新总数
-    imageTotal.textContent = photos.length;
-    
-    // 清空网格
-    photoGrid.innerHTML = '';
-    allPhotoElements = [];
-    
     // 使用DocumentFragment批量插入，减少重排
     const fragment = document.createDocumentFragment();
     
@@ -194,16 +182,6 @@ async function loadPhotos() {
     
     // 一次性添加所有元素，减少重排次数
     photoGrid.appendChild(fragment);
-    
-    // 使用事件委托处理照片点击
-    photoGrid.addEventListener('click', (e) => {
-        const photoItem = e.target.closest('.photo-item');
-        if (photoItem) {
-            const index = parseInt(photoItem.dataset.index);
-            openLightbox(index);
-        }
-    });
-}
 }
 
 // ========== 按分区过滤照片 ==========
@@ -278,6 +256,15 @@ function bindEvents() {
     
     // 键盘事件
     document.addEventListener('keydown', handleKeyboard);
+    
+    // 使用事件委托处理照片点击
+    photoGrid.addEventListener('click', (e) => {
+        const photoItem = e.target.closest('.photo-item');
+        if (photoItem) {
+            const index = parseInt(photoItem.dataset.index);
+            openLightbox(index);
+        }
+    });
 }
 
 // ========== 打开大图查看器 ==========

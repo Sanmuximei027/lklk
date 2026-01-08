@@ -14,6 +14,7 @@ body {
     background-color: #0a0a0a;
     color: #fff;
     position: relative;
+    padding-top: 60px; /* 为固定导航栏留出空间 */
 }
 
 /* ========== 背景CG层 ========== */
@@ -24,11 +25,12 @@ body {
     width: 100%;
     height: 100%;
     z-index: 0;
-    /* 默认背景，可修改下方路径 */
-    background-image: url('');
-    background-size: cover;
+    background-image: url('../res/images/bg/bgre.jpg');
+    background-size: 100%;
     background-position: center;
     background-color: #1a1a2e;
+    background-attachment: fixed;
+    overflow: hidden;
 }
 
 .bg-image {
@@ -37,10 +39,33 @@ body {
     object-fit: cover;
     opacity: 0;
     transition: opacity 1.5s ease-in-out;
+    animation: bgZoomEffect 10s ease-in-out infinite;
 }
 
 .bg-image.show {
     opacity: 1;
+    animation: bgZoomEffect 10s ease-in-out infinite;
+}
+
+/* 背景缓慢放大缩小动效 - 参考主页风格 */
+@keyframes bgZoomEffect {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 背景图片预加载容器 */
+.bg-image.preload {
+    opacity: 1;
+    z-index: -1;
+    animation: none;
+    transform: scale(1);
 }
 
 /* ========== 主界面UI层 ========== */
@@ -71,14 +96,14 @@ body {
 .title-area h1 {
     font-size: 28px;
     font-weight: normal;
-    color: #7fdbda;
-    text-shadow: 0 0 10px rgba(127, 219, 218, 0.5);
+    color: #e0b467;
+    text-shadow: 0 0 10px rgba(224, 180, 103, 0.5);
     letter-spacing: 2px;
 }
 
 .sub-title {
     font-size: 14px;
-    color: #5fb8b7;
+    color: #d4a574;
     margin-left: 20px;
     letter-spacing: 3px;
 }
@@ -115,8 +140,8 @@ body {
 }
 
 .track-item {
-    background: linear-gradient(135deg, rgba(40, 80, 100, 0.7), rgba(30, 60, 80, 0.8));
-    border: 1px solid rgba(100, 180, 180, 0.4);
+    background: linear-gradient(135deg, rgba(80, 70, 50, 0.7), rgba(60, 50, 35, 0.8));
+    border: 1px solid rgba(224, 180, 103, 0.4);
     border-radius: 5px;
     padding: 10px 8px;
     cursor: pointer;
@@ -137,16 +162,16 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(127, 219, 218, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(224, 180, 103, 0.1), transparent);
     transform: translateX(-100%);
     transition: transform 0.5s ease;
 }
 
 .track-item:hover {
-    background: linear-gradient(135deg, rgba(60, 120, 140, 0.8), rgba(40, 90, 110, 0.9));
-    border-color: rgba(127, 219, 218, 0.7);
+    background: linear-gradient(135deg, rgba(100, 90, 70, 0.8), rgba(80, 70, 50, 0.9));
+    border-color: rgba(224, 180, 103, 0.7);
     transform: scale(1.02);
-    box-shadow: 0 0 15px rgba(127, 219, 218, 0.3);
+    box-shadow: 0 0 15px rgba(224, 180, 103, 0.3);
 }
 
 .track-item:hover::before {
@@ -154,15 +179,15 @@ body {
 }
 
 .track-item.active {
-    background: linear-gradient(135deg, rgba(0, 200, 200, 0.8), rgba(0, 150, 150, 0.9));
-    border-color: #7fdbda;
-    box-shadow: 0 0 20px rgba(127, 219, 218, 0.5);
+    background: linear-gradient(135deg, rgba(200, 160, 80, 0.8), rgba(180, 140, 60, 0.9));
+    border-color: #e0b467;
+    box-shadow: 0 0 20px rgba(224, 180, 103, 0.5);
 }
 
 .track-name {
     font-size: 13px;
-    color: #c5f0ef;
-    text-shadow: 0 0 5px rgba(127, 219, 218, 0.3);
+    color: #e8d5b7;
+    text-shadow: 0 0 5px rgba(224, 180, 103, 0.3);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -191,23 +216,23 @@ body {
 }
 
 .page-btn {
-    background: linear-gradient(135deg, rgba(40, 80, 100, 0.7), rgba(30, 60, 80, 0.8));
-    border: 1px solid rgba(100, 180, 180, 0.4);
+    background: linear-gradient(135deg, rgba(80, 70, 50, 0.7), rgba(60, 50, 35, 0.8));
+    border: 1px solid rgba(224, 180, 103, 0.4);
     border-radius: 50%;
     width: 35px;
     height: 35px;
-    color: #7fdbda;
+    color: #e0b467;
     font-size: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .page-btn:hover {
-    background: rgba(127, 219, 218, 0.3);
+    background: rgba(224, 180, 103, 0.3);
 }
 
 .page-btn.active {
-    background: #7fdbda;
+    background: #e0b467;
     color: #1a1a2e;
 }
 
@@ -233,19 +258,19 @@ body {
 }
 
 .ctrl-btn {
-    background: linear-gradient(135deg, rgba(40, 100, 100, 0.8), rgba(30, 80, 80, 0.9));
-    border: 1px solid rgba(127, 219, 218, 0.5);
+    background: linear-gradient(135deg, rgba(80, 75, 50, 0.8), rgba(60, 55, 35, 0.9));
+    border: 1px solid rgba(224, 180, 103, 0.5);
     border-radius: 5px;
     padding: 8px 15px;
-    color: #7fdbda;
+    color: #e0b467;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .ctrl-btn:hover {
-    background: rgba(127, 219, 218, 0.4);
-    box-shadow: 0 0 10px rgba(127, 219, 218, 0.3);
+    background: rgba(224, 180, 103, 0.4);
+    box-shadow: 0 0 10px rgba(224, 180, 103, 0.3);
 }
 
 /* 音量控制 */
@@ -267,7 +292,7 @@ body {
     width: 120px;
     height: 5px;
     -webkit-appearance: none;
-    background: rgba(127, 219, 218, 0.3);
+    background: rgba(224, 180, 103, 0.3);
     border-radius: 3px;
     cursor: pointer;
 }
@@ -276,7 +301,7 @@ body {
     -webkit-appearance: none;
     width: 12px;
     height: 12px;
-    background: #7fdbda;
+    background: #e0b467;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -291,7 +316,7 @@ body {
 
 .time-display {
     font-size: 14px;
-    color: #7fdbda;
+    color: #e0b467;
     min-width: 45px;
 }
 
@@ -299,7 +324,7 @@ body {
     flex: 1;
     max-width: 500px;
     height: 8px;
-    background: rgba(127, 219, 218, 0.2);
+    background: rgba(224, 180, 103, 0.2);
     border-radius: 4px;
     cursor: pointer;
     position: relative;
@@ -307,7 +332,7 @@ body {
 
 .progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #4a9a9a, #7fdbda);
+    background: linear-gradient(90deg, #b8956a, #e0b467);
     border-radius: 4px;
     width: 0%;
     transition: width 0.1s linear;
@@ -332,7 +357,7 @@ body {
 }
 
 #composerName, #trackTitle {
-    color: #7fdbda;
+    color: #e0b467;
 }
 
 /* 返回按钮 */
@@ -347,7 +372,7 @@ body {
 }
 
 .back-btn:hover {
-    color: #7fdbda;
+    color: #e0b467;
 }
 
 /* ========== 响应式布局 ========== */
