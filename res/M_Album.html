@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅途相册</title>
+    <link rel="stylesheet" href="../css/M_Album.css">
+</head>
+<body>
+    <!-- 页面标题 -->
+    <header class="album-header">
+        <h1>旅途相册</h1>
+        <p class="subtitle">珍藏每一个美好瞬间</p>
+        <a href="M_Home.html" class="back-link">← 返回首页</a>
+    </header>
+
+    <!-- 相册网格容器 -->
+    <main class="album-container">
+        <!-- 左侧分区选择栏 -->
+        <aside class="category-sidebar" id="categorySidebar">
+            <h3 class="sidebar-title">照片分区</h3>
+            <ul class="category-list" id="categoryList">
+                <!-- 分区将通过JavaScript动态生成 -->
+            </ul>
+        </aside>
+        
+        <!-- 右侧照片网格 -->
+        <div class="photo-grid" id="photoGrid">
+            <!-- 这里的图片将通过JavaScript从 photos 文件夹自动加载 -->
+        </div>
+    </main>
+
+    <!-- 大图查看器（默认隐藏） -->
+    <div class="lightbox" id="lightbox">
+        <button class="close-btn" id="closeBtn">×</button>
+        <button class="nav-btn prev-btn" id="prevBtn">‹</button>
+        <button class="nav-btn next-btn" id="nextBtn">›</button>
+        
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightboxImg">
+            <div class="image-info">
+                <span id="imageIndex">1</span> / <span id="imageTotal">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="album.js"></script>
+</body>
+</html>
