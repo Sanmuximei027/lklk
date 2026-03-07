@@ -2,20 +2,28 @@
 :root {
     --primary-color: #e0b467; /* 金色调 */
     --secondary-color: #9c6c30; /* 深金色 */
+    --slate-blue: #03192f; /* 高级蓝灰 */
     --text-light: #f0f0f0;
     --text-dark: #333;
     --bg-dark: #1a1a2e; /* 深蓝色背景 */
     --bg-light: #2c2c4d; /* 稍亮的背景 */
-    --card-bg: rgba(44, 44, 77, 0.7); /* 卡片半透明背景 */
+    --card-bg: rgba(255, 230, 180, 0.4); /* 卡片淡金色半透明背景 */
     --border-color: rgba(224, 180, 103, 0.4); /* 边框颜色 */
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Noto Sans SC', sans-serif;
 }
 
-* {
-    margin: 0;/* 重置默认外边距 */
-    padding: 0;
-    box-sizing: border-box;/* 包括padding和border在内的宽高计算 */
+/* 背景缓慢放大缩小动画 */
+@keyframes background-zoom {
+    0% {
+        background-size: 100%;
+    }
+    50% {
+        background-size: 108%;
+    }
+    100% {
+        background-size: 100%;
+    }
 }
 
 body {
@@ -31,10 +39,13 @@ body {
     
     
     overflow-x: hidden; /* 防止水平滚动 */
-    background-image: url('images/main-bg.jpg'); /* 你的背景图片 */
-    background-size: cover;/* 覆盖整个背景,d等比，中心 */
+    
+    background-image: url('../res/images/bg/bgh.jpg'); /* 你的背景图片 */
+    background-size: 100%;/* 覆盖整个背景,d等比，中心 */
     background-position: center;/* 居中显示 ,缩放*/
     background-attachment: fixed; /* 背景固定 */
+    padding-top: 60px; /* 为固定导航栏留出空间 */
+    animation: background-zoom 12s ease-in-out infinite;
 }
 
 a {
@@ -50,8 +61,11 @@ a:hover {
 .main-header {
     background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
     padding: 1rem 2rem;/* rem=根元素默认大小，等比放大内边距 */
-    position: sticky;
-    top: 0;/* 固定在顶部 ,0时固定*/
+    position: fixed;
+    top: 0;/* 固定在顶部 */
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 1000;/* 确保在最上层 */
 }
 
@@ -138,7 +152,7 @@ a:hover {
     flex-direction: column;/* 垂直排列 */
     justify-content: space-between;
     align-items: center;
-    color: var(--text-light); /* 确保卡片内的文字颜色 */
+    color: var(--text-dark); /* 深色文字，适配淡金色背景 */
 
 
 }
@@ -153,7 +167,7 @@ a:hover {
     font-family: var(--font-heading);
     font-size: 1.8rem;
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    color: var(--slate-blue); /* 高级蓝灰标题 */
 }
 
 .module-cards .card p {
@@ -164,7 +178,7 @@ a:hover {
 
 .module-cards .card button {
     background-color: var(--primary-color);
-    color: var(--bg-dark);
+    color: var(--text-dark); /* 深色按钮文字 */
     border: none;/* 移除默认边框 更简洁*/
     padding: 0.8rem 1.8rem;/* shangxia   zuoyou  zhengjie内边距 */
     border-radius: 5px;

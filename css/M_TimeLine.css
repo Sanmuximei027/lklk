@@ -2,7 +2,12 @@
 
 /* 覆盖或补充主CSS中的样式 */
 body {
-    background-image: url('images/timeline-bg.jpg'); /* 另一个背景图 */
+    background-image: url('../res/images/bg/bgl1.jpg');
+    background-attachment: fixed; /* 背景图固定 */
+    background-size: cover;
+    background-position: center;
+    padding-top: 60px; /* 为固定导航栏留出空间 */
+    animation: none; /* 取消背景缩放动画 */
 }
 
 .main-header .navbar .nav-links .active {
@@ -84,6 +89,16 @@ body {
     z-index: 1;
 }
 
+/* 浮动动画关键帧 - 更自然的连贯浮动 */
+@keyframes float-bubble {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
 /* 时间线节点（小球） */
 .timeline-node {
     position: relative;
@@ -101,12 +116,46 @@ body {
     transition: all 0.3s ease;
     text-align: center;
     text-decoration: none; /* 移除链接下划线 */
+    animation: float-bubble 4s ease-in-out infinite; /* 增加周期到4s，更连贯 */
+}
+
+/* 递进式动画延迟形成波浪效果 */
+.timeline-node:nth-child(1) {
+    animation-delay: 0s;
+}
+.timeline-node:nth-child(2) {
+    animation-delay: 0.4s;
+}
+.timeline-node:nth-child(3) {
+    animation-delay: 0.8s;
+}
+.timeline-node:nth-child(4) {
+    animation-delay: 1.2s;
+}
+.timeline-node:nth-child(5) {
+    animation-delay: 1.6s;
+}
+.timeline-node:nth-child(6) {
+    animation-delay: 2s;
+}
+.timeline-node:nth-child(7) {
+    animation-delay: 2.4s;
+}
+.timeline-node:nth-child(8) {
+    animation-delay: 2.8s;
+}
+.timeline-node:nth-child(9) {
+    animation-delay: 3.2s;
+}
+.timeline-node:nth-child(10) {
+    animation-delay: 3.6s;
 }
 
 .timeline-node:hover {
     transform: scale(1.1) translateY(-10px); /* 悬浮和上浮效果 */
     box-shadow: 0 0 25px rgba(224, 180, 103, 0.8), 0 0 40px rgba(255, 255, 255, 0.3);
     border-color: var(--text-light);
+    animation-play-state: paused;
 }
 
 .node-bubble {
@@ -127,9 +176,6 @@ body {
 /* 详细信息悬浮窗样式 */
 .node-detail {
     position: absolute;
-    bottom: 140px; /* 位于小球上方 */
-    left: 50%;
-    transform: translateX(-50%);
     width: 220px;
     background-color: rgba(20, 20, 20, 0.95);
     border: 1px solid var(--primary-color);
@@ -142,12 +188,16 @@ body {
     pointer-events: none; /* 防止鼠标误触 */
     z-index: 10;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    bottom: auto;
+    top: 140px; /* 默认显示在下方 */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* 偶数个小球（原本是上移的）的悬浮窗显示在下方，避免遮挡 */
-.timeline-node:nth-child(even) .node-detail {
-    bottom: auto;
-    top: 140px;
+/* 奇数个小球的悬浮窗显示在上方 */
+.timeline-node:nth-child(odd) .node-detail {
+    top: auto;
+    bottom: 140px;
 }
 
 .node-detail h4 {
@@ -170,12 +220,12 @@ body {
 .timeline-node:hover .node-detail {
     opacity: 1;
     visibility: visible;
-    bottom: 150px; /* 稍微上浮一点的动画效果 */
+    top: 150px;
 }
 
-.timeline-node:nth-child(even):hover .node-detail {
-    bottom: auto;
-    top: 150px; /* 稍微下沉一点的动画效果 */
+.timeline-node:nth-child(odd):hover .node-detail {
+    top: auto;
+    bottom: 150px;
 }
 
 /* 调整小球的垂直位置，使其错落有致 */

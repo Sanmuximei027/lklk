@@ -9,9 +9,15 @@
 body {
     font-family: "Microsoft YaHei", sans-serif;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background-image: url('../res/images/bg/bgb1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
     color: #fff;
     min-height: 100vh;
     overflow-x: hidden;
+    padding-top: 60px; /* 为固定导航栏留出空间 */
 }
 
 /* ========== 页面标题 ========== */
@@ -22,17 +28,29 @@ body {
 }
 
 .album-header h1 {
-    font-size: 36px;
-    color: #7fdbda;
-    text-shadow: 0 0 15px rgba(127, 219, 218, 0.5);
-    margin-bottom: 10px;
-    letter-spacing: 3px;
+    font-size: 3rem;
+    color: #e0b467;
+    margin-bottom: 0.5rem;
+    text-shadow: 
+        -1px -1px 0 rgba(0, 0, 0, 0.7),
+        1px -1px 0 rgba(0, 0, 0, 0.7),
+        -1px 1px 0 rgba(0, 0, 0, 0.7),
+        1px 1px 0 rgba(0, 0, 0, 0.7),
+        0 0 8px rgba(224, 180, 103, 0.4);
+    letter-spacing: 2px;
 }
 
-.subtitle {
-    font-size: 16px;
-    color: #aaa;
-    letter-spacing: 2px;
+.album-header .subtitle {
+    font-size: 1.2rem;
+    color: #d4a574;
+    margin-bottom: 1.5rem;
+    text-shadow:
+        -1px -1px 0 rgba(0, 0, 0, 0.6),
+        1px -1px 0 rgba(0, 0, 0, 0.6),
+        -1px 1px 0 rgba(0, 0, 0, 0.6),
+        1px 1px 0 rgba(0, 0, 0, 0.6),
+        0 0 5px rgba(224, 180, 103, 0.3);
+    letter-spacing: 1px;
 }
 
 .back-link {
@@ -40,18 +58,18 @@ body {
     left: 30px;
     top: 50%;
     transform: translateY(-50%);
-    color: #7fdbda;
+    color: #e0b467;
     text-decoration: none;
     font-size: 16px;
     padding: 8px 15px;
-    border: 1px solid rgba(127, 219, 218, 0.5);
+    border: 1px solid rgba(224, 180, 103, 0.5);
     border-radius: 5px;
     transition: all 0.3s ease;
 }
 
 .back-link:hover {
-    background: rgba(127, 219, 218, 0.2);
-    box-shadow: 0 0 10px rgba(127, 219, 218, 0.3);
+    background: rgba(224, 180, 103, 0.2);
+    box-shadow: 0 0 10px rgba(224, 180, 103, 0.3);
 }
 
 /* ========== 相册容器 ========== */
@@ -67,8 +85,8 @@ body {
 .category-sidebar {
     width: 200px;
     min-width: 200px;
-    background: rgba(20, 20, 40, 0.8);
-    border: 1px solid rgba(127, 219, 218, 0.3);
+    background: rgba(224, 180, 103, 0.4);
+    border: 1px solid rgba(224, 180, 103, 0.6);
     border-radius: 10px;
     padding: 20px;
     height: fit-content;
@@ -77,11 +95,11 @@ body {
 }
 
 .sidebar-title {
-    color: #7fdbda;
+    color: #e0b467;
     font-size: 18px;
     margin-bottom: 15px;
     text-align: center;
-    border-bottom: 1px solid rgba(127, 219, 218, 0.3);
+    border-bottom: 1px solid rgba(224, 180, 103, 0.3);
     padding-bottom: 10px;
 }
 
@@ -95,20 +113,20 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: #c5f0ef;
+    color: #e8d5b7;
     font-size: 14px;
-    background: rgba(127, 219, 218, 0.1);
+    background: rgba(224, 180, 103, 0.1);
     border: 1px solid transparent;
 }
 
 .category-item:hover {
-    background: rgba(127, 219, 218, 0.2);
-    border-color: rgba(127, 219, 218, 0.5);
+    background: rgba(224, 180, 103, 0.2);
+    border-color: rgba(224, 180, 103, 0.5);
 }
 
 .category-item.active {
-    background: rgba(127, 219, 218, 0.3);
-    border-color: #7fdbda;
+    background: rgba(224, 180, 103, 0.3);
+    border-color: #e0b467;
     color: #fff;
     font-weight: bold;
 }
@@ -128,13 +146,15 @@ body {
     border-radius: 8px;
     cursor: pointer;
     aspect-ratio: 1;
-    background: rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(224, 180, 103, 0.4);
+    border: 1px solid rgba(224, 180, 103, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .photo-item:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(127, 219, 218, 0.4);
+    box-shadow: 0 8px 20px rgba(224, 180, 103, 0.4);
+    background: rgba(224, 180, 103, 0.35);
     z-index: 10;
 }
 
@@ -156,15 +176,15 @@ body {
     width: 350px;
     max-height: 80vh;
     overflow: hidden;
-    background: rgba(20, 20, 40, 0.98);
-    border: 2px solid rgba(127, 219, 218, 0.6);
+    background: rgba(224, 180, 103, 0.3);
+    border: 2px solid rgba(224, 180, 103, 0.6);
     border-radius: 10px;
     padding: 15px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
     z-index: 100;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(224, 180, 103, 0.25);
 }
 
 .photo-item:hover .hover-preview {
@@ -186,7 +206,7 @@ body {
 }
 
 .hover-description {
-    color: #c5f0ef;
+    color: #01080e;
     font-size: 14px;
     line-height: 1.6;
     max-height: 150px;
@@ -199,17 +219,17 @@ body {
 }
 
 .hover-description::-webkit-scrollbar-track {
-    background: rgba(127, 219, 218, 0.1);
+    background: rgba(224, 180, 103, 0.1);
     border-radius: 3px;
 }
 
 .hover-description::-webkit-scrollbar-thumb {
-    background: rgba(127, 219, 218, 0.5);
+    background: rgba(224, 180, 103, 0.5);
     border-radius: 3px;
 }
 
 .hover-description::-webkit-scrollbar-thumb:hover {
-    background: rgba(127, 219, 218, 0.7);
+    background: rgba(224, 180, 103, 0.7);
 }
 
 /* ========== 大图查看器 ========== */
@@ -244,14 +264,14 @@ body {
     max-height: 85vh;
     object-fit: contain;
     border-radius: 5px;
-    box-shadow: 0 0 30px rgba(127, 219, 218, 0.3);
+    box-shadow: 0 0 30px rgba(224, 180, 103, 0.3);
 }
 
 /* 图片信息 */
 .image-info {
     margin-top: 15px;
     font-size: 16px;
-    color: #7fdbda;
+    color: #e0b467;
     text-align: center;
 }
 
@@ -260,9 +280,9 @@ body {
     position: absolute;
     top: 20px;
     right: 30px;
-    background: rgba(127, 219, 218, 0.2);
-    border: 2px solid #7fdbda;
-    color: #7fdbda;
+    background: rgba(224, 180, 103, 0.2);
+    border: 2px solid #e0b467;
+    color: #e0b467;
     font-size: 40px;
     width: 50px;
     height: 50px;
@@ -276,7 +296,7 @@ body {
 }
 
 .close-btn:hover {
-    background: rgba(127, 219, 218, 0.4);
+    background: rgba(224, 180, 103, 0.4);
     transform: rotate(90deg);
 }
 
@@ -285,9 +305,9 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(127, 219, 218, 0.2);
-    border: 2px solid #7fdbda;
-    color: #7fdbda;
+    background: rgba(224, 180, 103, 0.2);
+    border: 2px solid #e0b467;
+    color: #e0b467;
     font-size: 40px;
     width: 50px;
     height: 50px;
@@ -301,8 +321,8 @@ body {
 }
 
 .nav-btn:hover {
-    background: rgba(127, 219, 218, 0.4);
-    box-shadow: 0 0 15px rgba(127, 219, 218, 0.5);
+    background: rgba(224, 180, 103, 0.4);
+    box-shadow: 0 0 15px rgba(224, 180, 103, 0.5);
 }
 
 .prev-btn {
