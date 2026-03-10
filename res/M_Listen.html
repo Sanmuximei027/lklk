@@ -3,89 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>路途中的聆听 - 探索世界音乐之美</title>
-    <link rel="stylesheet" href="../css/M.css">
-    <link rel="stylesheet" href="../css/M_Listen.css"> <!-- 专门为聆听页面创建的CSS文件 -->
+    <title>聆听之旅 - 世界音迹</title>
+    <link rel="stylesheet" href="../css/M_Listen.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="main-header">
-        <nav class="navbar">
-            <a href="../res/M_Home.html" class="logo">世界音迹</a>
-            <ul class="nav-links">
-                <li><a href="../res/M_Home.html">首页</a></li>
-                <li><a href="../res/M_Timeline.html">时间足迹</a></li>
-                <li><a href="../res/M_Listen.html" class="active">聆听之旅</a></li>
-                <li><a href="#">关于</a></li>
-            </ul>
-        </nav>
+    <!-- 背景点阵纹理 -->
+    <div class="bg-pattern"></div>
+    <!-- 边缘光晕 -->
+    <div class="edge-glow edge-glow--left"></div>
+    <div class="edge-glow edge-glow--right"></div>
+
+    <!-- 顶部导航栏 -->
+    <header class="ms-header" id="msHeader">
+        <div class="ms-header__inner">
+            <a href="../res/M_Home.html" class="ms-header__logo">
+                <svg viewBox="0 0 60 30" class="ms-header__logo-svg">
+                    <path d="M5 25 L15 5 L25 18 L35 5 L45 25" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="48" y1="5" x2="48" y2="25" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="48" y1="5" x2="55" y2="5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="48" y1="15" x2="53" y2="15" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </a>
+            <!-- 频谱可视化条 -->
+            <div class="ms-header__visualizer" id="visualizer">
+                <canvas id="visualizerCanvas" width="400" height="30"></canvas>
+            </div>
+            <!-- 当前播放曲目跑马灯 -->
+            <div class="ms-header__marquee" id="headerMarquee">
+                <span class="ms-header__marquee-sep">:</span>
+                <span class="ms-header__marquee-text" id="marqueeText">选择一首音乐</span>
+            </div>
+            <nav class="ms-header__nav">
+                <a href="../res/M_Home.html">首页</a>
+                <a href="../res/M_Timeline.html">时间足迹</a>
+                <a href="../res/M_Listen.html" class="active">聆听之旅</a>
+                <a href="#">关于</a>
+            </nav>
+        </div>
     </header>
 
-    <main class="listen-hero">
-        <div class="listen-header">
-            <a href="../res/M_Home.html" class="back-button">← 返回主页</a>
-            <h1>路途中的聆听：环球音景</h1>
-            <p>点击“小球”探索并播放来自世界各地的独特旋律。</p>
-        </div>
+    <!-- ===== 主内容区 ===== -->
+    <main class="ms-main">
 
-        <div class="music-grid-container">
-            <!-- 音乐小球，可以像时间线那样错落，也可以是网格布局 -->
-            <div class="music-node" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" data-title="非洲鼓乐">
-                <i class="fas fa-play play-icon"></i>
-                <img src="../res/images/listen/ir.jpg " alt="andisi">
-                <h3>安第斯山风 (Andean Wind)</h3>
-            </div>
-            <div class="music-node" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" data-title="拉丁爵士">
-                <i class="fas fa-play play-icon"></i>
-                <img src="../res/images/listen/kao.jpg" alt="sahala">
-                <h3>撒哈拉脉动 (Sahara Pulse)</h3>
-            </div>
-            <div class="music-node" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" data-title="印度拉格">
-                <i class="fas fa-play play-icon"></i>
-                <img src="../res/images/listen/w.jpg" alt="tuoling">
-                <h3>丝路驼铃 (Silk Road Echoes)</h3>
-            </div>
-            <div class="music-node" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" data-title="日本尺八">
-                <i class="fas fa-play play-icon"></i>
-                <img src="../res/images/listen/ko.jpg" alt="ko">
-                <h3>京都禅寺 (Kyoto Zen)</h3>
-            </div>
-            <div class="music-node" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" data-title="凯尔特民谣">
-                <i class="fas fa-play play-icon"></i>
-                <img src="../res/images/listen/ir.jpg" alt="kaierte">
-                <h3>爱尔兰迷雾 (Celtic Mists)</h3>
-            </div>
-            <div class="music-node" data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" data-title="中国古筝">
-                <i class="fas fa-play play-icon"></i>
-                <img src="../res/images/listen/gu.jpg" alt="guzhen">
-                <h3>高山流水 (Oriental Ink)</h3>
-            </div>
-            <!-- 更多音乐节点 -->
-        </div>
-
-        <!-- 全局音乐播放器 -->
-        <div class="global-player">
-            <audio id="audioPlayer"></audio>
-            
-            <div class="custom-player-ui">
-                <button id="playPauseBtn" class="control-btn"><i class="fas fa-play"></i></button>
-                
-                <div class="progress-area">
-                    <span id="currentTime">0:00</span>
-                    <div class="progress-container" id="progressContainer">
-                        <div class="progress-bar" id="progressBar"></div>
-                    </div>
-                    <span id="duration">0:00</span>
+        <!-- 专辑网格视图 -->
+        <section class="ms-albums" id="albumsView">
+            <div class="ms-albums__toolbar">
+                <div class="ms-albums__search">
+                    <input type="text" placeholder="搜索曲目" id="searchInput" autocomplete="off">
+                    <i class="fas fa-search ms-albums__search-icon"></i>
+                </div>
+                <div class="ms-albums__title">
+                    <span class="ms-albums__title-icon">
+                        <i class="fas fa-compact-disc"></i>
+                    </span>
+                    <h2>专辑陈列</h2>
                 </div>
             </div>
 
-            <div class="current-track-info">
-                正在播放：<span id="currentTrackTitle">选择一首音乐</span>
+            <div class="ms-albums__grid" id="albumsGrid">
+                <!-- 专辑卡片 1 -->
+                <div class="ms-album-card" 
+                     data-index="0"
+                     data-title="安第斯山风"
+                     data-subtitle="Andean Wind"
+                     data-artist="世界音迹 · MSR"
+                     data-src="../res/audio/listen/ir.mp3"
+                     data-cover="../res/images/listen/ir.jpg"
+                     data-desc="穿行于安第斯山脉的凛冽之风，排箫声在雪峰间回荡。高原上的旋律如同群山的呼吸，古老而永恒。">
+                    <div class="ms-album-card__img-wrap">
+                        <img src="../res/images/listen/ir.jpg" alt="安第斯山风">
+                        <div class="ms-album-card__overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="ms-album-card__label">© WORLD TRACES</div>
+                </div>
+
+                <!-- 专辑卡片 2 -->
+                <div class="ms-album-card" 
+                     data-index="1"
+                     data-title="撒哈拉脉动"
+                     data-subtitle="Sahara Pulse"
+                     data-artist="世界音迹 · MSR"
+                     data-src="../res/audio/listen/ma.mp3"
+                     data-cover="../res/images/listen/kao.jpg"
+                     data-desc="沙漠深处的鼓声脉动，热浪扭曲了视线，驼铃声在沙丘间传递着古老的故事。撒哈拉的节奏从未停歇。">
+                    <div class="ms-album-card__img-wrap">
+                        <img src="../res/images/listen/kao.jpg" alt="撒哈拉脉动">
+                        <div class="ms-album-card__overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="ms-album-card__label">© WORLD TRACES</div>
+                </div>
+
+                <!-- 专辑卡片 3 -->
+                <div class="ms-album-card" 
+                     data-index="2"
+                     data-title="丝路驼铃"
+                     data-subtitle="Silk Road Echoes"
+                     data-artist="世界音迹 · MSR"
+                     data-src="../res/audio/listen/lw.mp3"
+                     data-cover="../res/images/listen/w.jpg"
+                     data-desc="驼铃声穿越千年的丝绸之路，在敦煌壁画前驻足聆听。风沙掩埋了历史，却掩不住丝路的回响。">
+                    <div class="ms-album-card__img-wrap">
+                        <img src="../res/images/listen/w.jpg" alt="丝路驼铃">
+                        <div class="ms-album-card__overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="ms-album-card__label">© WORLD TRACES</div>
+                </div>
+
+                <!-- 专辑卡片 4 -->
+                <div class="ms-album-card" 
+                     data-index="3"
+                     data-title="京都禅寺"
+                     data-subtitle="Kyoto Zen"
+                     data-artist="世界音迹 · MSR"
+                     data-src="../res/audio/listen/Kokū .mp3"
+                     data-cover="../res/images/listen/ko.jpg"
+                     data-desc="尺八的幽远之音流过京都的竹林禅寺，枯山水庭院中的每一粒沙都有故事。禅意在寂静中生长。">
+                    <div class="ms-album-card__img-wrap">
+                        <img src="../res/images/listen/ko.jpg" alt="京都禅寺">
+                        <div class="ms-album-card__overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="ms-album-card__label">© WORLD TRACES</div>
+                </div>
+
+                <!-- 专辑卡片 5 -->
+                <div class="ms-album-card" 
+                     data-index="4"
+                     data-title="爱尔兰迷雾"
+                     data-subtitle="Celtic Mists"
+                     data-artist="世界音迹 · MSR"
+                     data-src="../res/audio/listen/de.mp3"
+                     data-cover="../res/images/listen/de.jpg"
+                     data-desc="凯尔特竖琴拨弄着爱尔兰翡翠般的田野，雾气笼罩的克利夫莫赫断崖上，风笛声与海浪交织。">
+                    <div class="ms-album-card__img-wrap">
+                        <img src="../res/images/listen/de.jpg" alt="爱尔兰迷雾">
+                        <div class="ms-album-card__overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="ms-album-card__label">© WORLD TRACES</div>
+                </div>
+
+                <!-- 专辑卡片 6 -->
+                <div class="ms-album-card" 
+                     data-index="5"
+                     data-title="高山流水"
+                     data-subtitle="Oriental Ink"
+                     data-artist="世界音迹 · MSR"
+                     data-src="../res/audio/listen/ro.mp3"
+                     data-cover="../res/images/listen/gu.jpg"
+                     data-desc="古筝弦上流淌着山水画意，高山流水遇知音。墨色山水在琴声中铺展开来，千年变迁尽在一曲之间。">
+                    <div class="ms-album-card__img-wrap">
+                        <img src="../res/images/listen/gu.jpg" alt="高山流水">
+                        <div class="ms-album-card__overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="ms-album-card__label">© WORLD TRACES</div>
+                </div>
             </div>
-        </div>
+
+            <!-- 分页指示器 -->
+            <div class="ms-albums__pagination" id="pagination">
+                <span class="ms-dot active"></span>
+            </div>
+        </section>
+
+        <!-- 专辑详情视图 -->
+        <section class="ms-detail" id="detailView">
+            <!-- 模糊背景 -->
+            <div class="ms-detail__bg" id="detailBg"></div>
+            
+            <!-- 左右切换箭头 -->
+            <button class="ms-detail__arrow ms-detail__arrow--prev" id="prevAlbum">
+                <svg viewBox="0 0 24 40" width="24" height="40"><polyline points="18 4 6 20 18 36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="ms-detail__arrow ms-detail__arrow--next" id="nextAlbum">
+                <svg viewBox="0 0 24 40" width="24" height="40"><polyline points="6 4 18 20 6 36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+
+            <div class="ms-detail__content">
+                <!-- 左侧：大封面 -->
+                <div class="ms-detail__cover-wrap">
+                    <img id="detailCover" src="" alt="Album Cover" class="ms-detail__cover">
+                    <div class="ms-detail__cover-label">© WORLD TRACES</div>
+                </div>
+                <!-- 右侧：信息 -->
+                <div class="ms-detail__info">
+                    <h1 class="ms-detail__title" id="detailTitle"></h1>
+                    <p class="ms-detail__subtitle" id="detailSubtitle"></p>
+                    <p class="ms-detail__artist" id="detailArtist"></p>
+                    <!-- 波形装饰线 -->
+                    <canvas class="ms-detail__waveform" id="detailWaveform" width="400" height="60"></canvas>
+                    <p class="ms-detail__desc" id="detailDesc"></p>
+                    <button class="ms-detail__play-btn" id="detailPlayBtn">
+                        <i class="fas fa-signal"></i>
+                        <span>PLAY</span>
+                    </button>
+                </div>
+            </div>
+            <!-- 返回按钮 -->
+            <button class="ms-detail__back" id="backToAlbums">
+                <i class="fas fa-th"></i>
+                <span>返回专辑</span>
+            </button>
+        </section>
+
     </main>
 
+    <!-- 底部标语 -->
+    <div class="ms-slogan">
+        <span>A &nbsp; W O R L D &nbsp; F A M I L I A R L Y &nbsp; U N K N O W N</span>
+    </div>
 
-    <script src="listen.js"></script> <!-- 链接到你的JavaScript文件 -->
+    <!-- 底部 SCROLL 指示器 -->
+    <div class="ms-scroll-hint" id="scrollHint">
+        <span>SCROLL</span>
+        <svg width="40" height="12" viewBox="0 0 40 12"><line x1="0" y1="6" x2="32" y2="6" stroke="currentColor" stroke-width="1"/><polyline points="28,2 34,6 28,10" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+    </div>
+
+    <!-- ===== 底部播放器 ===== -->
+    <div class="ms-player" id="msPlayer">
+        <audio id="audioPlayer"></audio>
+        <div class="ms-player__inner">
+            <!-- 左侧：封面缩略图 + 曲名 -->
+            <div class="ms-player__track-info">
+                <img id="playerThumb" class="ms-player__thumb" src="" alt="">
+                <div class="ms-player__track-text">
+                    <span class="ms-player__track-name" id="playerTrackName">未选择曲目</span>
+                    <span class="ms-player__track-artist" id="playerTrackArtist"></span>
+                </div>
+            </div>
+            <!-- 中间：进度条 + 时间 -->
+            <div class="ms-player__center">
+                <span class="ms-player__time" id="currentTime">00:00</span>
+                <div class="ms-player__progress" id="progressContainer">
+                    <div class="ms-player__progress-bar" id="progressBar"></div>
+                    <div class="ms-player__progress-thumb" id="progressThumb"></div>
+                </div>
+                <span class="ms-player__time" id="duration">00:00</span>
+            </div>
+            <!-- 右侧：控制按钮 -->
+            <div class="ms-player__controls">
+                <button class="ms-player__btn" id="prevBtn" title="上一曲"><i class="fas fa-backward"></i></button>
+                <button class="ms-player__btn ms-player__btn--play" id="playPauseBtn" title="播放/暂停"><i class="fas fa-play" id="playIcon"></i></button>
+                <button class="ms-player__btn" id="nextBtn" title="下一曲"><i class="fas fa-forward"></i></button>
+                <button class="ms-player__btn ms-player__btn--vol" id="volBtn" title="音量"><i class="fas fa-volume-up"></i></button>
+                <div class="ms-player__volume-slider" id="volumeSlider">
+                    <div class="ms-player__volume-bar" id="volumeBar"></div>
+                </div>
+                <button class="ms-player__btn ms-player__btn--mode" id="modeBtn" title="播放模式"><i class="fas fa-redo"></i></button>
+            </div>
+            <!-- 播放列表按钮 -->
+            <button class="ms-player__playlist-btn" id="playlistBtn">
+                <i class="fas fa-list-ul"></i>
+                <span>PLAYLIST</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 播放列表侧边栏 -->
+    <div class="ms-playlist" id="playlistPanel">
+        <div class="ms-playlist__header">
+            <h3>播放列表</h3>
+            <button class="ms-playlist__close" id="playlistClose"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="ms-playlist__list" id="playlistList"></ul>
+    </div>
+    <div class="ms-playlist__overlay" id="playlistOverlay"></div>
+
+    <script src="listen.js"></script>
 </body>
 </html>
