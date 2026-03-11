@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
         draw();
     }
 
-    // 动态波形（详情页 - 随音乐律动）
+    // 动态波形（详情页 - Monster Siren 风格多线交织）
     function startDetailWave() {
         if (waveAnimId) cancelAnimationFrame(waveAnimId);
         const canvas = detailWaveform;
@@ -387,84 +387,116 @@ document.addEventListener('DOMContentLoaded', () => {
         const H = canvas.height;
         const mid = H / 2;
 
-        // 用于平滑过渡的缓存数组
-        let smoothed = new Float32Array(W).fill(0);
+        // 定义5条波形线，各有不同参数
+        const waveLines = [
+            { freq: 0.008, speed: 0.8, amp: 18, phase: 0,    opacity: 0.45, width: 1.5 },
+            { freq: 0.012, speed: 1.2, amp: 14, phase: 1.2,  opacity: 0.30, width: 1.2 },
+            { freq: 0.018, speed: 1.8, amp: 10, phase: 2.5,  opacity: 0.22, width: 1.0 },
+            { freq: 0.006, speed: 0.5, amp: 22, phase: 3.8,  opacity: 0.18, width: 0.8 },
+            { freq: 0.022, speed: 2.2, amp: 7,  phase: 5.0,  opacity: 0.14, width: 0.7 },
+        ];
+
+        // 每条线的平滑缓存
+        const smoothedLines = waveLines.map(() => new Float32Array(W).fill(0));
+
+        // 散布粒子
+        const particles = [];
+        for (let i = 0; i < 30; i++) {
+            particles.push({
+                x: Math.random() * W,
+                baseY: mid + (Math.random() - 0.5) * H * 0.5,
+                r: Math.random() * 1.8 + 0.5,
+                opacity: Math.random() * 0.25 + 0.05,
+                drift: Math.random() * 0.3 + 0.1,
+                phase: Math.random() * Math.PI * 2,
+            });
+        }
 
         function draw() {
             waveAnimId = requestAnimationFrame(draw);
             ctx.clearRect(0, 0, W, H);
+            const t = Date.now() / 1000;
+            const ampMult = isPlaying ? 1.0 : 0.2;
 
-            // 获取波形数据
-            let waveData = null;
+            // 获取音频数据（如有）
+            let freqData = null;
             if (analyser && isPlaying) {
-                const bufLen = analyser.fftSize;
-                const timeDomain = new Uint8Array(bufLen);
-                analyser.getByteTimeDomainData(timeDomain);
-                waveData = timeDomain;
+                const bufLen = analyser.frequencyBinCount;
+                freqData = new Uint8Array(bufLen);
+                analyser.getByteFrequencyData(freqData);
             }
 
-            // 绘制主波形线
-            ctx.beginPath();
-            ctx.strokeStyle = 'rgba(255,255,255,0.5)';
-            ctx.lineWidth = 1.5;
-
-            for (let x = 0; x < W; x++) {
-                let target;
-                if (waveData && isPlaying) {
-                    // 用真实时域数据驱动
-                    const dataIdx = Math.floor((x / W) * waveData.length);
-                    const sample = (waveData[dataIdx] - 128) / 128; // -1 ~ 1
-                    target = sample * (H * 0.4);
-                } else if (isPlaying) {
-                    // 没有 analyser 但在播放 -> sin 模拟
-                    const t = Date.now() / 1000;
-                    target = Math.sin(x * 0.015 + t * 3) * 12
-                           + Math.sin(x * 0.04 + t * 5) * 6
-                           + Math.sin(x * 0.008 + t * 1.5) * 8;
-                } else {
-                    // 未播放 -> 微弱呼吸
-                    const t = Date.now() / 2000;
-                    target = Math.sin(x * 0.012 + t) * 3 + Math.sin(x * 0.03 + t * 0.7) * 1.5;
-                }
-
-                // 平滑插值
-                smoothed[x] += (target - smoothed[x]) * 0.18;
-                const y = mid + smoothed[x];
-
-                if (x === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            }
-            ctx.stroke();
-
-            // 第二条更细的线（阴影/回声效果）
-            if (isPlaying) {
+            // 绘制每条波形线
+            waveLines.forEach((line, li) => {
                 ctx.beginPath();
-                ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-                ctx.lineWidth = 1;
+                ctx.strokeStyle = `rgba(255,255,255,${line.opacity * (isPlaying ? 1 : 0.6)})`;
+                ctx.lineWidth = line.width;
+
                 for (let x = 0; x < W; x++) {
-                    const y = mid + smoothed[x] * 0.6 + 3;
+                    let target;
+                    // 基础多谐波合成
+                    const base =
+                        Math.sin(x * line.freq + t * line.speed + line.phase) * line.amp +
+                        Math.sin(x * line.freq * 2.3 + t * line.speed * 0.7 + line.phase * 1.5) * line.amp * 0.4 +
+                        Math.sin(x * line.freq * 0.5 + t * line.speed * 1.3 + line.phase * 0.8) * line.amp * 0.55;
+
+                    // 乘以音频能量
+                    if (freqData) {
+                        const dataIdx = Math.floor((x / W) * freqData.length);
+                        const energy = freqData[dataIdx] / 255;
+                        target = base * (0.3 + energy * 1.2) * ampMult;
+                    } else {
+                        target = base * ampMult;
+                    }
+
+                    // 平滑插值
+                    smoothedLines[li][x] += (target - smoothedLines[li][x]) * 0.12;
+                    const y = mid + smoothedLines[li][x];
+
                     if (x === 0) ctx.moveTo(x, y);
                     else ctx.lineTo(x, y);
                 }
                 ctx.stroke();
-            }
+            });
 
-            // 进度小圆点
+            // 散点粒子
+            particles.forEach(p => {
+                const py = p.baseY + Math.sin(t * p.drift + p.phase) * 8;
+                const pOpacity = p.opacity * (isPlaying ? 1 : 0.4);
+                ctx.fillStyle = `rgba(255,255,255,${pOpacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, py, p.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // 进度指示器圆点 (Monster Siren 风格：带空心环 + 发光)
             const progress = audio.duration ? (audio.currentTime / audio.duration) : 0;
-            const dotX = Math.max(4, progress * W);
-            const dotY = mid + smoothed[Math.min(Math.floor(dotX), W - 1)];
-            ctx.fillStyle = `rgba(255,255,255,${isPlaying ? 0.8 : 0.4})`;
+            const dotX = Math.max(10, progress * W);
+            // 圆点Y跟随第一条波形线
+            const dotY = mid + smoothedLines[0][Math.min(Math.floor(dotX), W - 1)];
+
+            // 外层光晕
+            const glowR = isPlaying ? 14 : 10;
+            const grad = ctx.createRadialGradient(dotX, dotY, 0, dotX, dotY, glowR);
+            grad.addColorStop(0, `rgba(255,255,255,${isPlaying ? 0.12 : 0.06})`);
+            grad.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = grad;
             ctx.beginPath();
-            ctx.arc(dotX, dotY, isPlaying ? 5 : 3.5, 0, Math.PI * 2);
+            ctx.arc(dotX, dotY, glowR, 0, Math.PI * 2);
             ctx.fill();
 
-            // 圆点发光
-            if (isPlaying) {
-                ctx.fillStyle = 'rgba(255,255,255,0.15)';
-                ctx.beginPath();
-                ctx.arc(dotX, dotY, 10, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            // 空心环
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, isPlaying ? 6 : 4.5, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(255,255,255,${isPlaying ? 0.7 : 0.35})`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // 实心小圆心
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, isPlaying ? 2.5 : 2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${isPlaying ? 0.85 : 0.4})`;
+            ctx.fill();
         }
         draw();
     }

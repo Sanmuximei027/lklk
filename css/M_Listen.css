@@ -429,10 +429,10 @@ a { color: inherit; text-decoration: none; }
 /* 波形装饰线 */
 .ms-detail__waveform {
     width: 100%;
-    max-width: 400px;
-    height: 60px;
+    max-width: 520px;
+    height: 90px;
     margin-bottom: 28px;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .ms-detail__desc {
